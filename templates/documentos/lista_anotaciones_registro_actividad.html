@@ -1,0 +1,30 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Registro de Activiad
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="parrafo">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Registro de Actividad de Anotaciones</h1>
+		<table>
+			<tr>
+				<th>Ley</th>
+				<th>Número de párrafo</th>
+				<th>Eliminar</th>
+			</tr>
+			{% for anotacion in object_list %}
+				<tr>
+					<td>{{ anotacion.parrafo.ley }}</a></td>
+					<td><a href="{% url 'documentos_app:registro_actividad_administra_anotacion' anotacion.pk %}">{{ anotacion.parrafo.parrafo }}</a></td>
+					<td><a href="{% url 'documentos_app:registro_actividad_elimina_anotacion' anotacion.pk %}">ELIMINAR</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

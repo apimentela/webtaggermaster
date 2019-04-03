@@ -1,0 +1,23 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Propuesta de Etiqueta
+    {% endblock %}
+    {% block content %}
+     <div class="registro" class="etiquetas">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Propuesta de Etiqueta </h1>
+		<form method="post" action="">
+		{% csrf_token %}
+			<table>
+				{{ form.as_table }}
+			</table>
+			<p><input type="submit" value="Proponer" /></p>
+		</form>
+	 </div>
+    {% endblock %}

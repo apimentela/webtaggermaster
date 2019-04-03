@@ -1,0 +1,23 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Administración de Anotaciones
+    {% endblock %}
+    {% block content %}
+     <div class="eliminar" class="anotaciones">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Seguro que quieres eliminar el Etiquetado: {{ object }}?</h1>
+		<form method="post" action="">
+		{% csrf_token %}
+			<table>
+				{{ form.as_table }}
+			</table>
+			<p><input type="submit" value="Eliminar" /></p>
+		</form>
+	 </div>
+    {% endblock %}

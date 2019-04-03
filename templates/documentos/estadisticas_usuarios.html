@@ -1,0 +1,26 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Estadísticas de Usuarios
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="estadisticas">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Estadísticas de usuarios</h1>
+		<table>
+			<tr>
+				<th>Usuario</th>
+			</tr>
+			{% for usuario in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:estadisticas_usuario' usuario.pk %}">{{ usuario.username }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

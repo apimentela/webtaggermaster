@@ -1,0 +1,30 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Administración de revisiones
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="revisiones">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Administración de revisiones</h1>
+		<table>
+			<tr>
+				<th>Revision</th>
+				<th>Revisor</th>
+				<th>Eliminar</th>
+			</tr>
+			{% for revision in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:administra_revision' revision.pk %}">{{ revision }}</a></td>
+					<td>{{ revision.revisor }}</td>
+					<td><a href="{% url 'documentos_app:elimina_revision' revision.pk %}">ELIMINAR</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Revisiones
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Revisión de ley</h1>
+		<table>
+			<tr>
+				<th>Revisión</th>
+			</tr>
+			{% for revision in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:revision' revision.pk %}">{{ revision }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

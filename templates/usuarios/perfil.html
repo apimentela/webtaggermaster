@@ -1,0 +1,85 @@
+{% extends 'usuario.html' %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+    Perfil {{ user.username }}
+{% endblock %}
+{% block css %}
+{% endblock %}
+{% block content %}
+<div class="row">
+    <h1>
+        Bienvenido {{ user.username }}
+    </h1>
+</div>
+{% comment %}
+<div class="row">
+    <div class="card mb-3">
+      <a href="#">
+        <img class="card-img-top img-fluid w-100" src="https://unsplash.it/700/450?image=281" alt="">
+      </a>
+      <div class="card-body">
+        <h6 class="card-title mb-1"><a href="#">Jeffery Wellings</a></h6>
+        <p class="card-text small">Nice shot from the skate park!
+          <a href="#">#kickflip</a>
+          <a href="#">#holdmybeer</a>
+          <a href="#">#igotthis</a>
+        </p>
+      </div>
+      <hr class="my-0">
+      <div class="card-body py-2 small">
+        <a class="mr-3 d-inline-block" href="#">
+          <i class="fa fa-fw fa-thumbs-up"></i>Like</a>
+        <a class="mr-3 d-inline-block" href="#">
+          <i class="fa fa-fw fa-comment"></i>Comment</a>
+        <a class="d-inline-block" href="#">
+          <i class="fa fa-fw fa-share"></i>Share</a>
+      </div>
+      <div class="card-footer small text-muted">Posted 1 hr ago</div>
+    </div>
+</div>
+{% endcomment %}
+{% load has_group %}
+<h2>¿Qué deseas hacer?</h2>
+<div style="height:2em;"></div>
+{% if request.user|has_group:"administradores" %} 
+<h2>Como anotador:</h2>
+{% endif %}
+<div class="container-fluid">
+    <a href="/registra_parrafos" class="btn btn-primary" style="margin:2px" role="button">Registrar párrafo de ley</a>
+    <a href="/anota_leyes" class="btn btn-primary" style="margin:2px" role="button">Anotar leyes</a>
+    <a href="/revisa_leyes" class="btn btn-primary" style="margin:2px" role="button">Revisar anotaciones</a>
+    <a href="/proponer_etiqueta" class="btn btn-primary" style="margin:2px" role="button">Proponer etiqueta nueva</a>
+    <a href="/consulta_documentos" class="btn btn-primary" style="margin:2px" role="button">Consultar documentos</a>
+    <a href="/registro_actividad" class="btn btn-primary" style="margin:2px" role="button">Consultar registro de actividad</a>
+</div>
+<div style="height:2em;"></div>
+{% if request.user|has_group:"administradores" %} 
+<h2>Como administrador:</h2>
+<div class="container-fluid">
+    <a href="/registro" class="btn btn-primary" role="button">Registrar usuario</a>
+    <a href="/administra_usuarios" class="btn btn-primary" style="margin:2px" role="button">Administrar usuarios</a>
+</div>
+<div class="container-fluid">
+    <a href="/registra_ley" class="btn btn-primary" style="margin:2px" role="button">Registrar ley</a>
+    <a href="/administra_leyes" class="btn btn-primary" style="margin:2px" role="button">Administrar leyes</a>
+    <a href="/administra_parrafos_leyes" class="btn btn-primary" style="margin:2px" role="button">Administrar párrafos</a>
+</div>
+<div class="container-fluid">
+    <a href="/asigna_anotacion_leyes" class="btn btn-primary" style="margin:2px" role="button">Asignar anotación</a>
+    <a href="/administra_anotaciones_leyes" class="btn btn-primary" style="margin:2px" role="button">Administrar anotaciones</a>        
+</div>
+<div class="container-fluid">
+    <a href="/asigna_revisiones" class="btn btn-primary" style="margin:2px" role="button">Asignar revisión</a>
+    <a href="/administra_revisiones_leyes" class="btn btn-primary" style="margin:2px" role="button">Administrar revisiones</a>
+</div>
+<div class="container-fluid">
+    <a href="/registra_etiqueta" class="btn btn-primary" style="margin:2px" role="button">Registrar etiqueta</a>
+    <a href="/administra_etiquetas" class="btn btn-primary" style="margin:2px" role="button">Administrar etiquetas</a>
+    <a href="/administra_etiquetas_propuestas" class="btn btn-primary" style="margin:2px" role="button">Administrar etiquetas propuestas</a>        
+</div>
+<div class="container-fluid">
+    <a href="/estadisticas_usuarios" class="btn btn-primary" style="margin:2px" role="button">Consultar estadísticas</a>
+</div>
+{% endif %}
+{% endblock %}

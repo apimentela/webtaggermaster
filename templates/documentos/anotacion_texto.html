@@ -1,0 +1,24 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Herramienta de Anotación
+    {% endblock %}
+	{% block js %}
+	<script>
+        var URL = "{% url 'documentos_app:anotacion_texto'  %}";
+    </script>
+	<script type = "text/javascript" src = "{% static 'js/limites_seleccion.js' %}"></script>
+	{% endblock %}
+    {% block content %}
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Herramienta de anotación</h1>
+		<textarea readonly id="texto" name="texto" rows="20" cols="50">
+			{{ texto }}
+		</textarea>
+	 </div>
+    {% endblock %}

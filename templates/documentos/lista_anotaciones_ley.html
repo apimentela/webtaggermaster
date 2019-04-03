@@ -1,0 +1,34 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Administración de anotaciones
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="anotaciones">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Administración de anotaciones</h1>
+		<table>
+			<tr>
+				<th>Ley</th>
+				<th>Anotación</th>
+				<th>Parrafo</th>
+				<th>Anotador</th>
+				<th>Eliminar</th>
+			</tr>
+			{% for anotacion in object_list %}
+				<tr>
+					<td>{{ anotacion.ley }}</a></td>
+					<td><a href="{% url 'documentos_app:administra_anotacion' anotacion.pk %}">{{ anotacion }}</a></td>
+					<td>{{ anotacion.parrafo }}</td>
+					<td>{{ anotacion.anotador }}</td>
+					<td><a href="{% url 'documentos_app:elimina_anotacion' anotacion.pk %}">ELIMINAR</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

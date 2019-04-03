@@ -1,0 +1,32 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Registro de Parrafos
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Registro de párrafos</h1>
+		<table>
+			<tr>
+				<th>Ley</th>
+				<th>Identificador</th>
+				<th>Archivo DOCX</th>
+				<th>Archivo PDF</th>
+			</tr>
+			{% for ley in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:registra_parrafo' ley.pk %}">{{ ley.nombre_oficial }}</a></td>
+					<td><a href="{% url 'documentos_app:registra_parrafo' ley.pk %}">{{ ley.identificador }}</a></td>
+					<td><a href="{{ ley.archivo_docx.url }}">descarga DOCX</a></td>
+					<td><a href="{{ ley.archivo_pdf.url }}">descarga PDF</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

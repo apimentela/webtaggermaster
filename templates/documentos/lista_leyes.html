@@ -1,0 +1,38 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Administración de Leyes
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="leyes">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Administración de Leyes</h1>
+		<table>
+			<tr>
+				<th>Ley</th>
+				<th>Identificador</th>
+				<th>Capturado</th>
+				<th>Archivo DOCX</th>
+				<th>Archivo PDF</th>
+			</tr>
+			{% for ley in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:administra_ley' ley.pk %}">{{ ley.nombre_oficial }}</a></td>
+					<td><a href="{% url 'documentos_app:administra_ley' ley.pk %}">{{ ley.identificador }}</a></td>
+				{% if ley.captura_parrafos_finalizada %}
+					<td> &#x2714 </td>
+				{% else %}
+					<td>  </td>
+				{% endif %}
+					<td><a href="{{ ley.archivo_docx.url }}">descarga DOCX</a></td>
+					<td><a href="{{ ley.archivo_pdf.url }}">descarga PDF</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

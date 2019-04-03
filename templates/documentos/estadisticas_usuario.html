@@ -1,0 +1,35 @@
+{% extends 'usuario.html' %}
+{% load smooth_timedelta %}
+    {% block title %}
+        Estadísticas de Usuarios
+    {% endblock %}
+    {% block content %}
+     <div class="registro" class="estadisticas">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Estadísticas de usuario: {{ usuario.username }} </h1>
+		 <ul>
+		  <li>Número de sesiones: {{ num_sesiones }}</li>
+		  <li>Duracion promedio de las sesiones: {{ duracion_promedio|smooth_timedelta }}</li>
+		  <li>Número de párrafos registrados: {{ num_parrafos }}</li>
+		  <li>Número de etiquetas asignadas: {{ num_etiquetados }}</li>
+		  <li>Número de revisiones realizadas: {{ num_revisiones }}</li>
+		</ul> 
+		<form method="post" action="">
+		{% csrf_token %}	
+			<p>Para consultar es coeficiente de concordancia con otro usuario, seleccionar al usuario:</p>
+			<table>
+				{{ form.as_table }}
+			 <tr>
+				<td></td>
+				<td><input type="submit" value="Consultar" /></td>
+			</tr>
+			 </table>
+		</form>
+	 </div>
+    {% endblock %}

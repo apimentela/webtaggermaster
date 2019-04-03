@@ -1,0 +1,21 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Asigna Revisiones
+    {% endblock %}
+    {% block content %}
+     <div class="asignacion" class="revisiones">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Asignacion de Revisiones:</h1>
+		 <ul>
+		  <li><a href="{% url 'documentos_app:asigna_revisiones_auto' %}">Asignacion Automática</a></li>
+		  <li><a href="{% url 'documentos_app:asigna_revision_leyes' %}">Asignación por Ley</a></li>
+		  <li><a href="{% url 'documentos_app:asigna_revision_usuarios' %}">Asignación por Usuario</a></li>
+		</ul> 
+	 </div>
+    {% endblock %}

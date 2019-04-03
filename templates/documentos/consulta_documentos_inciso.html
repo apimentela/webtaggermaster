@@ -1,0 +1,34 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Consulta de documentos
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="documentos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Consulta de documentos</h1>
+		<h3>Ley: <a href="{% url 'documentos_app:consulta_documentos_ley' object_list.0.ley.pk %}">{{ object_list.0.ley.nombre_oficial }}</a></h3>
+		<h3>Título: <a href="{% url 'documentos_app:consulta_documentos_titulo' object_list.0.pk %}">{{ object_list.0.titulo }}</a></h3>
+		<h3>Capítulo: <a href="{% url 'documentos_app:consulta_documentos_capitulo' object_list.0.pk %}">{{ object_list.0.capitulo }}</a></h3>
+		<h3>Base: <a href="{% url 'documentos_app:consulta_documentos_base' object_list.0.pk %}">{{ object_list.0.base }}</a></h3>
+		<h3>Apartado: <a href="{% url 'documentos_app:consulta_documentos_apartado' object_list.0.pk %}">{{ object_list.0.apartado }}</a></h3>
+		<h3>Artículo: <a href="{% url 'documentos_app:consulta_documentos_articulo' object_list.0.pk %}">{{ object_list.0.articulo }}</a></h3>
+		<h3>Fracción: <a href="{% url 'documentos_app:consulta_documentos_fraccion' object_list.0.pk %}">{{ object_list.0.fraccion }}</a></h3>
+		<h3>Inciso: {{ object_list.0.inciso }}</h3>
+		<table>
+			<tr>
+				<th>Número de párrafo</th>
+			</tr>
+			{% for parrafo in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:consulta_documentos_parrafo' parrafo.pk %}">{{ parrafo.parrafo }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

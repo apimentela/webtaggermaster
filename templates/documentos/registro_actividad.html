@@ -1,0 +1,21 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Registro de actividad
+    {% endblock %}
+    {% block content %}
+     <div class="registro" class="estadisticas">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Actividad de usuario: {{ usuario.username }}</h1>
+		 <ul>
+		  <li><a href="{% url 'documentos_app:registro_actividad_parrafos' %}">Registro de párrafos</a></li>
+		  <li><a href="{% url 'documentos_app:registro_actividad_anotaciones' %}">Anotaciones</a></li>
+		  <li><a href="{% url 'documentos_app:registro_actividad_revisiones' %}">Revisiones</a></li>
+		</ul> 
+	 </div>
+    {% endblock %}

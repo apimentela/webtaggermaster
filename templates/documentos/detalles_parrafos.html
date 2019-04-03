@@ -1,0 +1,29 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Detalles de Parrafo
+    {% endblock %}
+    {% block content %}
+     <div class="detalles" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Detalles de parrafo {{ object.parrafo }}</h1>
+		<span>Ley : {{ object.ley.nombre_oficial }}</span><br/>
+		<span>Titulo : {{ object.titulo }}</span><br/>
+		<span>Capitulo : {{ object.capitulo }}</span><br/>
+		<span>Base : {{ object.base }}</span><br/>
+		<span>Apartado : {{ object.apartado }}</span><br/>
+		<span>Artículo : {{ object.articulo }}</span><br/>
+		<span>Fracción : {{ object.fraccion }}</span><br/>
+		<span>Inciso : {{ object.inciso }}</span><br/>
+		<span>Fecha de registro : {{ object.fecha_registro }}</span><br/><br/>
+		<span>Texto : </span><br/><br/>
+		<p>
+			{{ object.texto }}
+		</p>
+	 </div>
+    {% endblock %}

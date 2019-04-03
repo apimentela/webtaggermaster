@@ -1,0 +1,47 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Registro de Párrafo
+    {% endblock %}
+    {% block content %}
+     <div class="registro" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Registro de Parrafo de Ley {{ ley.identificador }} </h1>
+		<h2>Información para registro:</h2>
+		<form method="post" action="">
+		{% csrf_token %}
+			<table>
+				{{ form.as_table }}
+			</table>
+			<p><input type="submit" value="Registrar" /></p>
+		</form>
+		<h2>Archivos de Consulta</h2>
+		<a href="{{ ley.archivo_docx.url }}">descarga DOCX</a>
+		<a href="{{ ley.archivo_pdf.url }}">descarga PDF</a>
+		<div class="lista" class="parrafos">
+			<h2>Parrafos capturados</h2>
+			<table>
+		{% if parrafos_capturados %}
+				<tr>
+					<th>Parrafo</th>
+				</tr>
+				{% for parrafo in parrafos_capturados %}
+					<tr>
+						<td> {{ parrafo.parrafo }} </td>
+						<td><a href="{% url 'documentos_app:detalles_parrafo' parrafo.pk %}">Detalles</a></td>
+					</tr>
+				{% endfor %}
+		{% else %}
+			<tr>
+			0
+			</tr>
+		{% endif %}
+			</table>
+		</div>
+	 </div>
+    {% endblock %}

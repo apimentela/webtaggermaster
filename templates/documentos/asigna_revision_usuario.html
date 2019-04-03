@@ -1,0 +1,28 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Asignación de Revisiones
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="anotaciones">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Asignación de revisiones por párrafo</h1>
+		<table>
+			<tr>
+				<th>Ley</th>
+				<th>Parrafo</th>
+			</tr>
+			{% for parrafo in object_list %}
+				<tr>
+					<td>{{ parrafo.ley }}</a></td>
+					<td><a href="{% url 'documentos_app:asigna_revision' parrafo.pk %}">{{ parrafo }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

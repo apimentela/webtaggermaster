@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+    Log-IN
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+        <form method="POST" action="{% url 'registro_app:login' %}">
+          {% csrf_token %}
+            <div> <span class="text-danger">{{ error }}</span></div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Usuario</label>
+            <input class="form-control"  name="username" id="username" aria-describedby="emailHelp" placeholder="gabriel">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Contraseña</label>
+            <input class="form-control" name="password" id="password" type="password" placeholder="123qweasd">
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox"> Remember Password</label>
+            </div>
+          </div>
+        <button class="btn btn-primary btn-block" type="submit" name="enviar">Enviar</button>
+        </form>
+        <div class="text-center">
+            {% comment %} <a class="d-block small mt-3" href="register.html">Register an Account</a> {% endcomment %}
+          <a class="d-block small" href="password_reset">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

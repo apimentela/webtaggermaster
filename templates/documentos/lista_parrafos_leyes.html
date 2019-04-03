@@ -1,0 +1,28 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Administración de párrafos por Ley
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Administración de párrafos</h1>
+		<table>
+			<tr>
+				<th>Ley</th>
+				<th>Identificador</th>
+			</tr>
+			{% for ley in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:administra_parrafos_ley' ley.pk %}">{{ ley.nombre_oficial }}</a></td>
+					<td><a href="{% url 'documentos_app:administra_parrafos_ley' ley.pk %}">{{ ley.identificador }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

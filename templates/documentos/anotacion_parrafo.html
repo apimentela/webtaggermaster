@@ -1,0 +1,165 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Anotación de Párrafo
+    {% endblock %}
+    {% block css %}
+<style>
+div label input {
+   margin-right:100px;
+}
+body {
+	font-family:sans-serif;
+}
+#ck-button {
+	margin:4px;
+	background-color:#EFEFEF;
+	border-radius:4px;
+	border:1px solid #D0D0D0;
+	overflow:auto;
+}
+#ck-button label {
+	float:left;
+    margin-right:.5em;
+}
+#ck-button label span {
+	text-align:center;
+	padding:3px 0px;
+	display:block;
+}
+#ck-button label input {
+	position:absolute;
+	top:-20px;
+}
+#ck-button input:checked + span {
+	background-color:#911;
+	color:#fff;
+}
+.etiquetada {
+    color:#222;
+	font-weight: bold;
+}
+</style>
+	{% endblock %}
+    {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script>
+        var URL = "{% url 'documentos_app:anota_parrafo' anotacion.parrafo.pk %}";
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    {% endblock %}
+    {% block content %}
+     <div class="registro" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Anotación de Párrafo: {{ anotacion.parrafo }} </h1>
+        {% for etiqueta in etiquetas %}
+            {{ etiqueta }}
+        {% endfor %}
+		<h3>Vista:</h3>
+		 <button onclick="amodo_texto()" type="button">Texto</button> 
+		 <button onclick="amodo_botones()" type="button">Botones</button> 
+		<form id="form_anotacion" method="post" action="{% url 'documentos_app:anota_parrafo' anotacion.parrafo.pk %}">
+		{% csrf_token %}
+		{{ form.modo_texto }}
+		{{ form.modo_botones }}
+		{% if modo_texto or modo_botones %}
+			<h3>Texto a anotar:</h3>
+			{% if modo_texto %}
+			{{ form.palabra_inicial }}
+			{{ form.palabra_final }}
+			<p class="aviso">ATENCIÓN: solo se acepta una selección de texto a la vez.</p>
+			<div class="parrafo">
+				<p id="texto_parrafo">
+					{% for palabra in palabras %}
+					<span id="{{ palabra.num_palabra }}" {% if palabra.grupo %} class="etiquetada {{ palabra.grupo.etiqueta_asignada }}" {% endif %}>&thinsp;{{ palabra.palabra }}&thinsp;</span>
+					{% endfor %}
+				</p>
+			</div>
+			{% endif %}
+			{% if modo_botones %}
+			<div class="parrafo" id="ck-button">
+				{% for palabra in palabras %}
+				<label {% if palabra.grupo %} class="etiquetada {{ palabra.grupo.etiqueta_asignada }}" {% endif %} ><input type="checkbox" name="palabras_checked" value="{{ palabra.num_palabra }}"><span id="{{ palabra.num_palabra }}" {% if palabra.grupo %} class="etiquetada {{ palabra.grupo.etiqueta_asignada }}" {% endif %}>{{ palabra.palabra }}</span></label>
+				{% endfor %}
+			</div>
+			{% endif %}
+			<br>
+			<h3>Etiqueta:</h3>
+			<p><a target="_blank" href="{% url 'documentos_app:descripcion_etiquetas' %}">Descripción de etiquetas</a></p>
+			{{ form.etiqueta }}
+			<div style="margin-top:2ex;">
+				{% if modo_botones %}
+				<p><input type="submit" value="Anotar" /></p>
+				{% endif %}
+				{% if modo_texto %}
+				<p><button onclick="verificar()">Anotar</button> </p>
+				{% endif %}			
+			</div>
+		{% endif %}
+		</form>
+	 </div>
+    {% endblock %}
+    {% block js_custom %}
+		<script>
+			function amodo_texto() {
+				//alert("Boton texto");
+				document.getElementById('boton_texto').value = 1;
+				document.getElementById('boton_botones').value = 0;
+				document.getElementById('form_anotacion').submit();
+			}
+			function amodo_botones() {
+				//alert("Boton botones");
+				document.getElementById('boton_texto').value = 0;
+				document.getElementById('boton_botones').value = 1;
+				document.getElementById('form_anotacion').submit();
+			}
+			function verificar() {
+				var elem = document.getElementById("texto_parrafo");
+				var userSelection = window.getSelection();
+				var nodo1 = userSelection.anchorNode.parentElement; // uso el parent Element porque quiero obtener el span, y si no solo me da un objeto de texto
+				var nodo1P = nodo1.parentElement;
+				var start = userSelection.anchorOffset;
+				var nodo2 = userSelection.focusNode.parentElement; // uso el parent Element porque quiero obtener el span, y si no solo me da un objeto de texto
+				var nodo2P = nodo2.parentElement;
+				var end = userSelection.focusOffset;
+				var nodo2_length = nodo2.innerText.length;
+				if ( nodo1P == elem && nodo2P == elem && start==1 && end == nodo2_length-1 ){ // El 1 y el -1 es para ajustar para el espacio extra que puse y asegurar que no se sale la selección del span
+					document.getElementById('palabra_inicial').value = nodo1.id;
+					document.getElementById('palabra_final').value = nodo2.id;
+					document.getElementById('form_anotacion').submit();
+				} else {
+					//~ alert( nodo1.id + ":" + start +"," + nodo2.id +":" + end);
+					alert("La selección del texto no es correcta");
+				}
+			}
+			////////////////////////////////////////////////////////////
+			//~ function establece_modo(modo){
+				//~ var csrftoken = Cookies.get('csrftoken');
+				//~ var data = {'modo':modo,'csrfmiddlewaretoken':csrftoken}; //new FormData($('form')[0]);
+				//~ $.post(URL,data);
+			//~ }te
+			$(document).ready(function(){
+				//~ $('#boton_texto').click(function(){
+					//~ establece_modo("texto");
+				//~ });
+				//~ $('#boton_botones').click(function(){
+					//~ establece_modo("botones");
+				//~ });
+				$('form').bind("keypress", function(e) { // Esta función evita que se haga submit a la form con enter y tengan que oprimir el botón
+					if (e.keyCode == 13) {
+						return false;
+					}
+				});
+			});
+            //Esto lo puso Miguel
+            {% for etiqueta in etiquetas %}
+                $(".{{ etiqueta }}").hover(function() {$(".{{ etiqueta }}").siblings(".{{ etiqueta }}").css({"background-color": "cyan"});},
+                function() {$(".{{ etiqueta }}").siblings(".{{ etiqueta }}").css({"background-color": "initial"});});
+            {% endfor %}
+		</script>
+    {% endblock %}

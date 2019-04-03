@@ -1,0 +1,34 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Consulta de documentos
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="documentos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Consulta de documentos</h1>
+		<h3>Ley: <a href="{% url 'documentos_app:consulta_documentos_ley' parrafo.ley.pk %}">{{ parrafo.ley.nombre_oficial }}</a></h3>
+		<h3>Título: <a href="{% url 'documentos_app:consulta_documentos_titulo' parrafo.pk %}">{{ parrafo.titulo }}</a></h3>
+		<h3>Capítulo: <a href="{% url 'documentos_app:consulta_documentos_capitulo' parrafo.pk %}">{{ parrafo.capitulo }}</a></h3>
+		<h3>Base: <a href="{% url 'documentos_app:consulta_documentos_base' parrafo.pk %}">{{ parrafo.base }}</a></h3>
+		<h3>Apartado: <a href="{% url 'documentos_app:consulta_documentos_apartado' parrafo.pk %}">{{ parrafo.apartado }}</a></h3>
+		<h3>Artículo: <a href="{% url 'documentos_app:consulta_documentos_articulo' parrafo.pk %}">{{ parrafo.articulo }}</a></h3>
+		<h3>Fracción: <a href="{% url 'documentos_app:consulta_documentos_fraccion' parrafo.pk %}">{{ parrafo.fraccion }}</a></h3>
+		<h3>Inciso: <a href="{% url 'documentos_app:consulta_documentos_inciso' parrafo.pk %}">{{ parrafo.inciso }}</a></h3>
+		<h3>Número de párrafo: parrafo.parrafo</h3>
+		<h3>Texto</h3>
+		<p>
+			{{ parrafo.texto }}
+		</p>
+		{% if anotable %}
+			<ul>
+				<li><a href="{% url 'documentos_app:anota_parrafo' parrafo.pk %}">ANOTAR</a></li>
+			</ul>
+		{% endif %}
+	 </div>
+    {% endblock %}

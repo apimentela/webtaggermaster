@@ -1,0 +1,26 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Asignación de revisiones por Usuario
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="usuarios">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Asignación de revisiones</h1>
+		<table>
+			<tr>
+				<th>Usuario</th>
+			</tr>
+			{% for usuario in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:asigna_revision_usuario' usuario.pk %}">{{ usuario.username }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Registro de Activiad
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="parrafo">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Registro de Actividad de Revisiones</h1>
+		<table>
+			<tr>
+				<th>Revisión</th>
+				<th>Eliminar</th>
+			</tr>
+			{% for revision in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:registro_actividad_administra_revision' revision.pk %}">{{ revision }}</a></td>
+					<td><a href="{% url 'documentos_app:registro_actividad_elimina_revision' revision.pk %}">ELIMINAR</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

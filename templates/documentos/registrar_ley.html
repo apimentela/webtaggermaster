@@ -1,0 +1,23 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Registro de Ley
+    {% endblock %}
+    {% block content %}
+     <div class="registro" class="leyes">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Registro de Ley </h1>
+		<form method="post" action="" enctype="multipart/form-data">
+		{% csrf_token %}
+			<table>
+				{{ form.as_table }}
+			</table>
+			<p><input type="submit" value="Registrar" /></p>
+		</form>
+	 </div>
+    {% endblock %}

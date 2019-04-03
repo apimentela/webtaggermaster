@@ -1,0 +1,28 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Anotaciones
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Anotacion de ley</h1>
+		<table>
+			<tr>
+				<th>Ley</th>
+				<th>Párrafo</th>
+			</tr>
+			{% for anotacion in object_list %}
+				<tr>
+					<td>{{ anotacion.parrafo.ley }}</a></td>
+					<td><a href="{% url 'documentos_app:anota_parrafo' anotacion.parrafo.pk %}">{{ anotacion.parrafo }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

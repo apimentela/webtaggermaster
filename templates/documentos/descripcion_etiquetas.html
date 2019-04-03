@@ -1,0 +1,28 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Descripción de Etiquetas
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="anotaciones">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Descripción de Etiquetas</h1>
+		<table>
+			<tr>
+				<th>Etiqueta</th>
+				<th>Descripción</th>
+			</tr>
+			{% for etiqueta in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:descripcion_etiqueta' etiqueta.pk %}">{{ etiqueta }}</a></td>
+					<td>{{ etiqueta.descripcion }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

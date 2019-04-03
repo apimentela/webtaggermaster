@@ -1,0 +1,28 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Consulta de documentos
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="documentos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Consulta de documentos</h1>
+		<table>
+			<tr>
+				<th>Ley</th>
+				<th>Identificador</th>
+			</tr>
+			{% for ley in object_list %}
+				<tr>
+					<td><a href="{% url 'documentos_app:consulta_documentos_ley' ley.pk %}">{{ ley.nombre_oficial }}</a></td>
+					<td><a href="{% url 'documentos_app:consulta_documentos_ley' ley.pk %}">{{ ley.identificador }}</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Detalles de Etiquetas
+    {% endblock %}
+    {% block content %}
+     <div class="detalles" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Detalles de etiqueta: {{ object }}</h1>
+		<span>Descripcion : {{ object.descripcion }}</span><br/>
+		<span>Ejemplos :</span><br/>
+		<p>
+			{{ object.ejemplos }}
+		</p>
+	 </div>
+    {% endblock %}

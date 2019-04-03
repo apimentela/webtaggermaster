@@ -1,0 +1,29 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Administración de Usuarios
+    {% endblock %}
+    {% block content %}
+     <div class="lista" class="lista">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Administración de Usuarios</h1>
+		<table>
+			<tr>
+				<th>Usuario</th>
+				<th>Email</th>
+			</tr>
+			{% for usuario in object_list %}
+				<tr>
+					<td><a href="{% url 'usuarios_app:administra_usuario' usuario.pk %}">{{ usuario.username }}</a></td>
+					<td>{{ usuario.email }}</td>
+					<td><a href="{% url 'usuarios_app:elimina_usuario' usuario.pk %}">Eliminar</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	 </div>
+    {% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Revisión de Etiquetado
+    {% endblock %}
+    {% block css %}
+<style>
+.etiquetada {
+	background-color:#888;
+}
+</style>
+	{% endblock %}
+    {% block content %}
+     <div class="registro" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Revisión de etiquetado: {{ revision.etiquetado }} </h1>
+		<form method="post" action="">
+		{% csrf_token %}
+			<h3>Texto anotado:</h3>
+			<div class="parrafo">
+				<p id="texto_parrafo">
+					{% for palabra in palabras %}
+					<span class="{% if palabra.grupo ==  revision.etiquetado %}etiquetada{% endif %}">{{ palabra.palabra }}</span>
+					{% endfor %}
+				</p>
+			</div>
+			<h3>Etiqueta asignada: {{ revision.etiquetado.etiqueta_asignada }}</h3>
+			<br>
+			<h3>Revisión:</h3>
+			<p>Está de acuerdo con la etiqueta asignada?</p>
+			{{ form.acuerdo }}
+			<div style="margin-top:2ex;">
+				<p><input type="submit" value="Revisar" /></p>
+			</div>
+		</form>
+	 </div>
+    {% endblock %}

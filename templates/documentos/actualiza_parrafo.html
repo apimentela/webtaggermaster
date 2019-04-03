@@ -1,0 +1,23 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Administración de Párrafos
+    {% endblock %}
+    {% block content %}
+     <div class="actualizar" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Actualiza Párrafo: {{ object }} </h1>
+		<form method="post" action="" >
+		{% csrf_token %}
+			<table>
+				{{ form.as_table }}
+			</table>
+			<p><input type="submit" value="Actualizar" /></p>
+		</form>
+	 </div>
+    {% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'usuario.html' %}
+    {% block title %}
+        Revisión de Etiquetado
+    {% endblock %}
+    {% block css %}
+<style>
+.etiquetada {
+	background-color:#888;
+}
+</style>
+	{% endblock %}
+    {% block content %}
+     <div class="registro" class="parrafos">
+		 {% if messages %}
+			<ul>
+				{% for message in messages %}
+				<li>{{ message }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<h1>Revisión de anotacion: {{ anotacion }} </h1>
+			<h3>Texto anotado:</h3>
+			<div class="parrafo">
+				<p id="texto_parrafo">
+					{% for palabra in palabras %}
+					<span class="{% if palabra.grupo ==  revision.etiquetado %}etiquetada{% endif %}">{{ palabra.palabra }}</span>
+					{% endfor %}
+				</p>
+			</div>
+			<h3>Etiqueta asignada: {{ etiquetado.etiqueta_asignada }}</h3>
+			<br>
+			<h3>Revisión:</h3>
+			<p><a href="{% url 'documentos_app:registro_actividad_elimina_etiquetado' etiquetado.pk %}">ELIMINAR</a> Anotación?</p>
+			</div>
+		</form>
+	 </div>
+    {% endblock %}
