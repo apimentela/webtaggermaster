@@ -39,7 +39,7 @@ class Parrafos(models.Model):
     fecha_registro = models.DateTimeField(null=False, blank=False,verbose_name="Fecha de registro")
     fecha_ultima_anotacion = models.DateTimeField(null=True, blank=True,verbose_name="Fecha de última anotación")
     class Meta:
-        unique_together=(("ley","titulo","capitulo","base","apartado","apartado","fraccion","inciso","parrafo"),)
+        unique_together=(("ley","titulo","capitulo","base","apartado","fraccion","inciso","parrafo"),)
     def __str__ (self):
         return self.ley.identificador+"_"+str(self.parrafo)
 class Etiquetas(models.Model):
