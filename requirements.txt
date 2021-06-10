@@ -1,6 +1,6 @@
 backports.shutil-get-terminal-size==1.0.0
 decorator==4.2.1
-Django==1.11.9
+Django==2.2.24
 django-extensions==1.9.9
 django-jet==1.0.7
 django-widget-tweaks==1.4.1
